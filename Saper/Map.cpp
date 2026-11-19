@@ -22,11 +22,12 @@ void Map::DrawMap(bool isDebug) const
 
 	std::cout << "\n\n";
 
-	for (size_t i = 0; i < lenX_; i++)
+
+	for (size_t i = 0; i < lenY_; i++)
 	{
 		std::cout << i << "\t";
 
-		for (size_t j = 0; j < lenY_; j++)
+		for (size_t j = 0; j < lenX_; j++)
 		{
 			if (isDebug) {
 
@@ -59,6 +60,8 @@ void Map::DrawMap(bool isDebug) const
 	}
 }
 
+// y - row x col
+
 void Map::PlaceBombs()
 {
 	for (int i = 0; i < bombCount_; i++)
@@ -67,17 +70,18 @@ void Map::PlaceBombs()
 		do {
 			x = rand() % lenX_;
 			y = rand() % lenY_;
-		} while (map_[x][y].Type != CellType::Free);
+		} while (map_[y][x].Type != CellType::Free);
 
-		map_[x][y].Type = CellType::Bomb;
+		map_[y][x].Type = CellType::Bomb;
 	}
 }
 
 void Map::PlaceNums()
 {
-	for (int i = 0; i < lenX_; i++)
+	// i row j col
+	for (int i = 0; i < lenY_; i++)
 	{
-		for (int j = 0; j < lenY_; j++)
+		for (int j = 0; j < lenX_; j++)
 		{
 			if (map_[i][j].Type == CellType::Bomb)
 				IncrementAround(i, j);
