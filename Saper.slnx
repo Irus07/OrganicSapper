@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Saper/Saper.vcxproj" />
+  <Project Path="Saper/Saper.vcxproj" Id="4c8b5342-5449-402e-a3d1-9c06955858e9" />
 </Solution>
