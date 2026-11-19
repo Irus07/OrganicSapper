@@ -8,7 +8,7 @@ namespace sapper {
 
 	enum class CellType { Free, Bomb, Number, };
 	enum class CellStatus { Closed, Opened, Flag, };
-	enum class MoveResult { Bomb, Number, None };
+	enum class MoveResult { Bomb, Number, None, Invalid };
 
 	static inline std::string MoveRtoStr(MoveResult res) {
 		switch (res) {
@@ -16,7 +16,7 @@ namespace sapper {
 		case MoveResult::Number:return "Number ";
 		case MoveResult::None: return "None ";
 		}
-		return "Unknown";
+		return "Invalid";
 	}
 
 	struct Cell

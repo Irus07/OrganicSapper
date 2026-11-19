@@ -62,7 +62,18 @@ namespace sapper {
 
 	MoveResult Map::MakeMove(unsigned x, unsigned y)
 	{
-		return MoveResult();
+		auto cell = map_[y][x];
+
+		if (cell.Status != CellStatus::Closed)
+			return MoveResult::Invalid;
+
+		cell.Status = CellStatus::Opened;
+
+		switch (cell.Type) {
+		case CellType::Bomb: return MoveResult::Bomb;
+		case CellType::Number: return MoveResult::Number;
+		default: return MoveResult::None;
+		}
 	}
 
 	// y - row x col
