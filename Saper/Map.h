@@ -1,14 +1,23 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 namespace sapper {
-
 
 
 	enum class CellType { Free, Bomb, Number, };
 	enum class CellStatus { Closed, Opened, Flag, };
 	enum class MoveResult { Bomb, Number, None };
+
+	static inline std::string MoveRtoStr(MoveResult res) {
+		switch (res) {
+		case MoveResult::Bomb: return "Bomb ";
+		case MoveResult::Number:return "Number ";
+		case MoveResult::None: return "None ";
+		}
+		return "Unknown";
+	}
 
 	struct Cell
 	{

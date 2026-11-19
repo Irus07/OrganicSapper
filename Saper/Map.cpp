@@ -60,6 +60,11 @@ namespace sapper {
 		}
 	}
 
+	MoveResult Map::MakeMove(unsigned x, unsigned y)
+	{
+		return MoveResult();
+	}
+
 	// y - row x col
 
 	void Map::PlaceBombs()
