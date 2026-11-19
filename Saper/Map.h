@@ -1,24 +1,31 @@
 #pragma once
 
+#include <vector>
+
+enum class CellType { Bomb, Free, Number, };
+enum class CellStatus { Closed, Opened, Flag, };
+enum class MoveResult { Bomb, Number, None };
+
+struct Cell
+{
+	CellStatus Status;
+	CellType Type;
+	unsigned Value;
+};
+
 class Map
 {
 public:
-	Map(unsigned short lenX, unsigned short lenY, unsigned short bombCount);
+	Map(unsigned lenX, unsigned lenY, unsigned bombCount);
 
-	unsigned short LenX;
-	unsigned short LenY;
-	unsigned short BombCount;
+	unsigned GetLenX() const { return lenX_; };
+	unsigned GetLenY() const { return lenY_; };
 
 	void DrawMap() const;
-	MoveResult MakeMove(unsigned int x , unsigned int y);
+	MoveResult MakeMove(unsigned x, unsigned y);
 
 private:
+	unsigned lenX_, lenY_, bombCount_;
+	std::vector<std::vector<Cell>> map_;
 	void CheckMove();
-};
-
-enum MoveResult
-{
-	Bomb,
-	Number,
-	None
 };
