@@ -2,7 +2,7 @@
 
 #include <vector>
 
-enum class CellType { Bomb, Free, Number, };
+enum class CellType { Free, Bomb, Number, };
 enum class CellStatus { Closed, Opened, Flag, };
 enum class MoveResult { Bomb, Number, None };
 
@@ -21,11 +21,15 @@ public:
 	unsigned GetLenX() const { return lenX_; };
 	unsigned GetLenY() const { return lenY_; };
 
-	void DrawMap() const;
+	void DrawMap(bool isDebug = false) const;
 	MoveResult MakeMove(unsigned x, unsigned y);
 
 private:
 	unsigned lenX_, lenY_, bombCount_;
 	std::vector<std::vector<Cell>> map_;
 	void CheckMove();
+	void PlaceBombs();
+	void PlaceNums();
+	void IncrementAround(int x, int y);
 };
+
