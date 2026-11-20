@@ -4,18 +4,18 @@
 sapper::Game::Game(unsigned lenX, unsigned lenY, unsigned bombs)
 	:map_(lenX, lenY, bombs)
 {
+	map_.DrawMap();
 }
 
 void sapper::Game::MakeMove(unsigned x, unsigned y)
 {
 	auto res = map_.MakeMove(x, y);
-	
+
 	std::cout << "Result : " << sapper::MoveRtoStr(res) << std::endl;
 
-	if (IsGameOver(res))
-	{
-		GameOver();
-		return;
+	switch (res) {
+	case MoveResult::Bomb: GameOver(); return;
+	case MoveResult::Empty: map_.OpenAround(x, y); break;
 	}
 
 	map_.DrawMap();
@@ -34,6 +34,9 @@ void sapper::Game::NewGame(unsigned lenX, unsigned lenY, unsigned bombs)
 
 void sapper::Game::GameOver()
 {
+
+	map_.DrawMap();
+
 	std::cout << "\n=========================================" << std::endl;
 	std::cout << "\t\tYou lose" << std::endl;
 	std::cout << "=========================================" << std::endl;
@@ -48,3 +51,5 @@ bool sapper::Game::IsGameOver(MoveResult res)
 
 	return false;
 }
+
+

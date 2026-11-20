@@ -80,7 +80,7 @@ namespace sapper {
 		switch (cell.Type) {
 		case CellType::Bomb: return MoveResult::Bomb;
 		case CellType::Number: return MoveResult::Number;
-		default: return MoveResult::None;
+		default: return MoveResult::Empty;
 		}
 	}
 
@@ -92,8 +92,32 @@ namespace sapper {
 		else if (cell.Status == CellStatus::Flag)
 			cell.Status = CellStatus::Closed;
 		else {
-			std::string ex = std::format("Incorrect point : ({}, {})", x, y);
-			throw std::invalid_argument(ex);
+			return;
+		}
+
+	}
+
+	void Map::OpenAround(unsigned x, unsigned y)
+	{
+		for (size_t i = 0; i < 8; i++)
+		{
+			int tmpX = x + offsetX[i];
+			int tmpY = y + offsetY[i];
+
+			if (!(tmpY >= 0 && tmpY < map_.size()))
+				continue;
+
+			if (!(tmpX >= 0 && tmpX < map_[0].size()))
+				continue;
+
+			auto& tmpCell = map_[tmpY][tmpX];
+
+			if (tmpCell.Type != CellType::Free || tmpCell.Status != CellStatus::Closed)
+				continue;
+
+			tmpCell.Status = CellStatus::Opened;
+
+			OpenAround(tmpX, tmpY);
 		}
 
 	}
@@ -129,8 +153,8 @@ namespace sapper {
 
 	void Map::IncrementAround(int x, int y)
 	{
-		const std::array<int, 8> offsetX = { -1, -1, -1, 0, 1, 1, 1, 0 };
-		const std::array<int, 8> offsetY = { 1, 0, -1, -1, -1, 0, 1, 1 };
+		//const std::array<int, 8> offsetX = { -1, -1, -1, 0, 1, 1, 1, 0 };
+		//const std::array<int, 8> offsetY = { 1, 0, -1, -1, -1, 0, 1, 1 };
 
 		auto& cell = map_[y][x];
 

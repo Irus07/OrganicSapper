@@ -15,6 +15,7 @@ namespace sapper {
 		sapper::Map map_;
 		void GameOver();
 		bool IsGameOver(MoveResult res);
+		void OpenAround(unsigned x, unsigned y);
 	};
 
 }

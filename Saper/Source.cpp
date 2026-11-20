@@ -10,10 +10,10 @@ int main() {
 		unsigned x, y;
 
 		std::cout << "x : ";
-		std::cin >> x ;
+		std::cin >> x;
 
 		std::cout << "y : ";
-		std::cin >> y;
+		std::cin >> y ;
 
 		game.MakeMove(x, y);
 
