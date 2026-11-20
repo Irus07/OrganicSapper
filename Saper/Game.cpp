@@ -7,6 +7,24 @@ sapper::Game::Game(unsigned lenX, unsigned lenY, unsigned bombs)
 	map_.DrawMap();
 }
 
+void sapper::Game::TakeControl()
+{
+	unsigned x, y;
+	while (true) {
+		std::cout << "X: ";
+		std::cin >> x;
+
+		std::cout << "Y: ";
+		std::cin >> y;
+		std::cout << std::endl;
+
+		MakeMove(x, y);
+
+		map_.DrawMap();
+		std::cout << std::endl;
+	}
+}
+
 void sapper::Game::MakeMove(unsigned x, unsigned y)
 {
 	auto res = map_.MakeMove(x, y);
@@ -18,8 +36,6 @@ void sapper::Game::MakeMove(unsigned x, unsigned y)
 	case MoveResult::Empty: map_.OpenAround(x, y); break;
 	}
 
-	map_.DrawMap();
-	std::cout << std::endl;
 }
 
 void sapper::Game::MakeFlag(unsigned x, unsigned y)
