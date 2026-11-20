@@ -36,6 +36,8 @@ namespace sapper {
 
 		void DrawMap(bool isDebug = false) const;
 		MoveResult MakeMove(unsigned x, unsigned y);
+		void SwitchFlag(unsigned x, unsigned y);
+
 
 	private:
 		unsigned lenX_, lenY_, bombCount_;

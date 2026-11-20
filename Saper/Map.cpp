@@ -1,4 +1,6 @@
 #include"Map.h"
+#include <format>
+#include<array>
 #include <iostream>
 
 namespace sapper {
@@ -82,6 +84,20 @@ namespace sapper {
 		}
 	}
 
+	void Map::SwitchFlag(unsigned x, unsigned y)
+	{
+		auto& cell = map_[y][x];
+		if (cell.Status == CellStatus::Closed)
+			cell.Status = CellStatus::Flag;
+		else if (cell.Status == CellStatus::Flag)
+			cell.Status = CellStatus::Closed;
+		else {
+			std::string ex = std::format("Incorrect point : ({}, {})", x, y);
+			throw std::invalid_argument(ex);
+		}
+
+	}
+
 	// y - row x col
 
 	void Map::PlaceBombs()
@@ -106,14 +122,38 @@ namespace sapper {
 			for (int j = 0; j < lenX_; j++)
 			{
 				if (map_[i][j].Type == CellType::Bomb)
-					IncrementAround(i, j);
+					IncrementAround(j, i);
 			}
 		}
 	}
 
 	void Map::IncrementAround(int x, int y)
 	{
+		const std::array<int, 8> offsetX = { -1, -1, -1, 0, 1, 1, 1, 0 };
+		const std::array<int, 8> offsetY = { 1, 0, -1, -1, -1, 0, 1, 1 };
 
+		auto& cell = map_[y][x];
+
+		for (size_t i = 0; i < 8; i++)
+		{
+			int tmpX = x + offsetX[i];
+			int tmpY = y + offsetY[i];
+
+			if (!(tmpY >= 0 && tmpY < map_.size()))
+				continue;
+
+			if (!(tmpX >= 0 && tmpX < map_[0].size()))
+				continue;
+
+
+			auto& target = map_[tmpY][tmpX];
+
+			if (target.Type == CellType::Bomb)
+				continue;
+						
+			target.Type = CellType::Number;
+			target.Value++;
+		}
 	}
 
 }

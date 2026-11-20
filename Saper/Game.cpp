@@ -22,6 +22,11 @@ void sapper::Game::MakeMove(unsigned x, unsigned y)
 	std::cout << std::endl;
 }
 
+void sapper::Game::MakeFlag(unsigned x, unsigned y)
+{
+
+}
+
 void sapper::Game::NewGame(unsigned lenX, unsigned lenY, unsigned bombs)
 {
 	map_ = Map{ lenX,lenY, bombs };
