@@ -1,9 +1,22 @@
 #include "Map.h"
+#include "Game.h"
+#include <iostream>
 
 int main() {
+	sapper::Game game{};
 
+	while (true) {
 
-	sapper::Map map{ 5,7,10 };
-	map.DrawMap(true);
-	return  0;
+		unsigned x, y;
+
+		std::cout << "x : ";
+		std::cin >> x ;
+
+		std::cout << "y : ";
+		std::cin >> y;
+
+		game.MakeMove(x, y);
+
+	}
+
 }

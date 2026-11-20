@@ -15,26 +15,29 @@ namespace sapper {
 
 	void Map::DrawMap(bool isDebug) const
 	{
-		std::cout << "\t";
+		std::cout << " X\t";
 
 		for (size_t i = 0; i < lenY_; i++)
 			std::cout << i << " ";
 
-		std::cout << "\n\n";
+		std::cout << "\nY\n";
 
 
+		//i row j col
 		for (size_t i = 0; i < lenY_; i++)
 		{
 			std::cout << i << "\t";
 
 			for (size_t j = 0; j < lenX_; j++)
 			{
+				auto cell = map_[i][j];
+
 				if (isDebug) {
 
-					switch (map_[i][j].Type)
+					switch (cell.Type)
 					{
 					case CellType::Free:  std::cout << "f "; break;
-					case CellType::Number:std::cout << map_[i][j].Value << " ";break;
+					case CellType::Number:std::cout << cell.Value << " ";break;
 					case CellType::Bomb: std::cout << "! "; break;
 					}
 
@@ -42,15 +45,16 @@ namespace sapper {
 					continue;
 				}
 
-				switch (map_[i][j].Status)
+				switch (cell.Status)
 				{
 				case CellStatus::Closed: std::cout << "# "; break;
 				case CellStatus::Flag:  std::cout << "@ "; break;
 				case CellStatus::Opened:
-					switch (map_[i][j].Type)
+					switch (cell.Type)
 					{
 					case CellType::Free:  std::cout << "  "; break;
-					case CellType::Number:std::cout << map_[i][j].Value << " ";break;
+					case CellType::Bomb:  std::cout << "* "; break;
+					case CellType::Number:std::cout << cell.Value << " ";break;
 					}
 					break;
 				}
@@ -62,7 +66,9 @@ namespace sapper {
 
 	MoveResult Map::MakeMove(unsigned x, unsigned y)
 	{
-		auto cell = map_[y][x];
+		// y row x col
+
+		auto& cell = map_[y][x];
 
 		if (cell.Status != CellStatus::Closed)
 			return MoveResult::Invalid;

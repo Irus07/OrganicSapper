@@ -9,9 +9,11 @@ sapper::Game::Game(unsigned lenX, unsigned lenY, unsigned bombs)
 void sapper::Game::MakeMove(unsigned x, unsigned y)
 {
 	auto res = map_.MakeMove(x, y);
-	std::cout << "Result : " << sapper::MoveRtoStr(res);
+	
+	std::cout << "Result : " << sapper::MoveRtoStr(res) << std::endl;
 
 	map_.DrawMap();
+	std::cout << std::endl;
 }
 
 void sapper::Game::NewGame(unsigned lenX, unsigned lenY, unsigned bombs)
