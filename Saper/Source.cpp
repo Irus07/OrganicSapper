@@ -18,5 +18,4 @@ int main() {
 		game.MakeMove(x, y);
 
 	}
-
 }

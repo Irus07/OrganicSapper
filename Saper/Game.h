@@ -12,7 +12,8 @@ namespace sapper {
 		void NewGame(unsigned lenX = 10, unsigned lenY = 10, unsigned bombs = 10);
 	private:
 		sapper::Map map_;
-
+		void GameOver();
+		bool IsGameOver(MoveResult res);
 	};
 
 }
