@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "iostream"
+#include <string>
 
 sapper::Game::Game(unsigned lenX, unsigned lenY, unsigned bombs)
 	:map_(lenX, lenY, bombs)
@@ -9,16 +10,31 @@ sapper::Game::Game(unsigned lenX, unsigned lenY, unsigned bombs)
 
 void sapper::Game::TakeControl()
 {
-	unsigned x, y;
-	while (true) {
-		std::cout << "X: ";
-		std::cin >> x;
+	unsigned x{}, y{};
+	char c{};
+	std::string sx, sy, sc;
 
-		std::cout << "Y: ";
-		std::cin >> y;
+	while (true) {
+		std::cout << "Format : action[f - flag/any str - move] pointX pointY" << std::endl;
+		std::cin >> sc >> sx >> sy;
+
+		try
+		{
+			x = std::stoi(sx);
+			y = std::stoi(sy);
+			c = sc[0];
+		}
+		catch (std::exception ex) {
+			std::cout << "Incorrect input : try again " << std::endl << std::endl;
+			continue;
+		}
+
 		std::cout << std::endl;
 
-		MakeMove(x, y);
+		if (c == 'f')
+			MakeFlag(x, y);
+		else
+			MakeMove(x, y);
 
 		map_.DrawMap();
 		std::cout << std::endl;
